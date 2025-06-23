@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnglishLearner - Trang chủ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-graduation-cap"></i> EnglishLearner
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">
+                            <i class="fas fa-home"></i> Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="vocabulary.html">
+                            <i class="fas fa-book"></i> Từ vựng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="grammar.html">
+                            <i class="fas fa-spell-check"></i> Ngữ pháp
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="listening.html">
+                            <i class="fas fa-headphones"></i> Luyện nghe
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="speaking.html">
+                            <i class="fas fa-microphone"></i> Luyện nói
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="exercises.html">
+                            <i class="fas fa-pencil-alt"></i> Bài tập
+                        </a>
+                    </li>                    <li class="nav-item">
+                        <a class="nav-link" href="progress.html">
+                            <i class="fas fa-chart-line"></i> Tiến trình
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="test.html">
+                            <i class="fas fa-bug"></i> Test
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mt-5 pt-5">
+        <!-- Welcome Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card bg-gradient-primary text-white">
+                    <div class="card-body">
+                        <h1 class="card-title">
+                            <i class="fas fa-star"></i> Chào mừng trở lại!
+                        </h1>
+                        <p class="card-text">Hôm nay là ngày tuyệt vời để học tiếng Anh. Hãy tiếp tục hành trình của bạn!</p>
+                        <p class="mb-0">
+                            <i class="fas fa-calendar-alt"></i> 
+                            <span id="currentDate"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="card stat-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-book-open fa-2x text-primary mb-2"></i>
+                        <h5 class="card-title">Bài đã học</h5>
+                        <h3 class="text-primary" id="lessonsCompleted">0</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card stat-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-brain fa-2x text-success mb-2"></i>
+                        <h5 class="card-title">Từ vựng</h5>
+                        <h3 class="text-success" id="vocabularyCount">0</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card stat-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-trophy fa-2x text-warning mb-2"></i>
+                        <h5 class="card-title">Điểm số</h5>
+                        <h3 class="text-warning" id="totalScore">0</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card stat-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-fire fa-2x text-danger mb-2"></i>
+                        <h5 class="card-title">Streak</h5>
+                        <h3 class="text-danger" id="studyStreak">0</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h3><i class="fas fa-bolt"></i> Truy cập nhanh</h3>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card quick-action-card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-play-circle text-primary"></i> Tiếp tục học
+                        </h5>
+                        <p class="card-text">Tiếp tục bài học cuối cùng</p>
+                        <button class="btn btn-primary" onclick="continueLastLesson()">
+                            Bắt đầu
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card quick-action-card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-cards-blank text-success"></i> Flashcard
+                        </h5>
+                        <p class="card-text">Ôn tập từ vựng</p>
+                        <a href="vocabulary.html#flashcard" class="btn btn-success">
+                            Luyện tập
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card quick-action-card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-question-circle text-warning"></i> Kiểm tra
+                        </h5>
+                        <p class="card-text">Làm bài kiểm tra nhanh</p>
+                        <a href="exercises.html" class="btn btn-warning">
+                            Bắt đầu
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Reminder -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card reminder-card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-bell text-info"></i> Lời nhắc nhở hôm nay
+                        </h5>
+                        <div id="dailyReminder">
+                            <p class="mb-2">🎯 Hôm nay hãy học ít nhất 10 từ vựng mới</p>
+                            <p class="mb-2">📚 Ôn tập ngữ pháp về thì hiện tại hoàn thành</p>
+                            <p class="mb-0">🎧 Nghe một đoạn hội thoại tiếng Anh</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        <!-- Recent Activity -->
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <h3><i class="fas fa-history"></i> Hoạt động gần đây</h3>
+                <div class="card">
+                    <div class="card-body">
+                        <div id="recentActivity">
+                            <div class="activity-item">
+                                <i class="fas fa-check-circle text-success"></i>
+                                <span>Hoàn thành bài tập từ vựng "Business English"</span>
+                                <small class="text-muted">2 giờ trước</small>
+                            </div>
+                            <div class="activity-item">
+                                <i class="fas fa-headphones text-primary"></i>
+                                <span>Nghe hoàn thành "Daily Conversation"</span>
+                                <small class="text-muted">1 ngày trước</small>
+                            </div>
+                            <div class="activity-item">
+                                <i class="fas fa-trophy text-warning"></i>
+                                <span>Đạt 85 điểm trong bài kiểm tra ngữ pháp</span>
+                                <small class="text-muted">2 ngày trước</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h3><i class="fas fa-calendar-alt"></i> Lịch học tập</h3>
+                <div class="card">
+                    <div class="card-body">
+                        <div id="miniStudyCalendar">
+                            <!-- Mini calendar will be generated here -->
+                        </div>                        <div class="mt-3">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <small class="text-muted">
+                                    <i class="fas fa-fire text-danger"></i> 
+                                    Streak: <span id="currentStreak">0</span> ngày
+                                </small>
+                                <div>
+                                    <button class="btn btn-sm btn-outline-warning me-1" onclick="app.recalculateStreak()" title="Tính lại streak">
+                                        <i class="fas fa-sync-alt"></i>
+                                    </button>
+                                    <a href="progress.html" class="btn btn-sm btn-outline-primary">
+                                        Xem chi tiết
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>EnglishLearner</h5>
+                    <p>Học tiếng Anh hiệu quả và thú vị</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; 2025 EnglishLearner. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/sample-data.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
