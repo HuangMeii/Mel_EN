@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnglishLearner - Bài tập & Kiểm tra</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-graduation-cap"></i> EnglishLearner
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home"></i> Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="vocabulary.html">
+                            <i class="fas fa-book"></i> Từ vựng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="grammar.html">
+                            <i class="fas fa-spell-check"></i> Ngữ pháp
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="listening.html">
+                            <i class="fas fa-headphones"></i> Luyện nghe
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="speaking.html">
+                            <i class="fas fa-microphone"></i> Luyện nói
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="exercises.html">
+                            <i class="fas fa-pencil-alt"></i> Bài tập
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="progress.html">
+                            <i class="fas fa-chart-line"></i> Tiến trình
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mt-5 pt-5">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1><i class="fas fa-pencil-alt text-warning"></i> Bài tập & Kiểm tra</h1>
+                <p class="lead">Kiểm tra và nâng cao kiến thức tiếng Anh của bạn</p>
+            </div>
+        </div>
+
+        <!-- Exercise Types -->
+        <div class="row mb-4">
+            <div class="col-md-4 mb-3">
+                <div class="card quick-action-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-spell-check fa-3x text-primary mb-3"></i>
+                        <h5>Ngữ pháp</h5>
+                        <p class="text-muted">Bài tập về thì, câu điều kiện, mệnh đề...</p>
+                        <button class="btn btn-primary" onclick="startGrammarTest()">
+                            Bắt đầu
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card quick-action-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-book fa-3x text-success mb-3"></i>
+                        <h5>Từ vựng</h5>
+                        <p class="text-muted">Kiểm tra từ vựng và khả năng nhận biết</p>
+                        <button class="btn btn-success" onclick="startVocabularyTest()">
+                            Bắt đầu
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card quick-action-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-headphones fa-3x text-info mb-3"></i>
+                        <h5>Nghe hiểu</h5>
+                        <p class="text-muted">Bài tập nghe và trả lời câu hỏi</p>
+                        <button class="btn btn-info" onclick="startListeningTest()">
+                            Bắt đầu
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Interface (Hidden by default) -->
+        <div id="testInterface" class="row" style="display: none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h4 id="testTitle">Kiểm tra</h4>
+                            <div>
+                                <span class="badge bg-primary me-2" id="testProgress">0/0</span>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="exitTest()">
+                                    <i class="fas fa-times"></i> Thoát
+                                </button>
+                            </div>
+                        </div>
+                        <div class="progress mt-2">
+                            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <!-- Question Display -->
+                        <div id="questionContainer">
+                            <h5 id="questionText">Câu hỏi sẽ hiển thị ở đây</h5>
+                            <div id="questionContext" class="text-muted mb-3" style="display: none;">
+                                <!-- Context for listening questions -->
+                            </div>
+                            <div id="answerOptions" class="mt-3">
+                                <!-- Answer options will be inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Navigation -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <button class="btn btn-outline-secondary" id="prevButton" onclick="previousQuestion()" disabled>
+                                <i class="fas fa-arrow-left"></i> Trước
+                            </button>
+                            <div>
+                                <button class="btn btn-warning me-2" onclick="skipQuestion()">
+                                    <i class="fas fa-forward"></i> Bỏ qua
+                                </button>
+                                <button class="btn btn-primary" id="nextButton" onclick="nextQuestion()">
+                                    Tiếp theo <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Results (Hidden by default) -->
+        <div id="testResults" class="row" style="display: none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4><i class="fas fa-trophy"></i> Kết quả kiểm tra</h4>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stat-display">
+                                    <h2 id="finalScore" class="text-primary">0%</h2>
+                                    <p>Điểm số</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="stat-display">
+                                    <h2 id="correctAnswers" class="text-success">0</h2>
+                                    <p>Câu đúng</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="stat-display">
+                                    <h2 id="totalQuestions" class="text-info">0</h2>
+                                    <p>Tổng câu hỏi</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <div id="scoreMessage" class="alert" role="alert">
+                                <!-- Score message will be inserted here -->
+                            </div>
+                        </div>
+
+                        <!-- Detailed Results -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <h5>Chi tiết kết quả</h5>
+                                <div id="detailedResults" class="text-start">
+                                    <!-- Detailed results will be inserted here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <button class="btn btn-primary me-2" onclick="retakeTest()">
+                                <i class="fas fa-redo"></i> Làm lại
+                            </button>
+                            <button class="btn btn-success me-2" onclick="reviewAnswers()">
+                                <i class="fas fa-eye"></i> Xem lại đáp án
+                            </button>
+                            <button class="btn btn-secondary" onclick="backToExercises()">
+                                <i class="fas fa-arrow-left"></i> Về trang bài tập
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Test Results -->
+        <div class="row">
+            <div class="col-12">
+                <h3><i class="fas fa-history"></i> Kết quả gần đây</h3>
+                <div class="card">
+                    <div class="card-body" id="recentResults">
+                        <!-- Recent results will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Custom Test Modal -->
+    <div class="modal fade" id="customTestModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tùy chỉnh bài kiểm tra</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="customTestForm">
+                        <div class="mb-3">
+                            <label for="testTypeSelect" class="form-label">Loại bài kiểm tra</label>
+                            <select class="form-control" id="testTypeSelect" required>
+                                <option value="grammar">Ngữ pháp</option>
+                                <option value="vocabulary">Từ vựng</option>
+                                <option value="listening">Nghe hiểu</option>
+                                <option value="mixed">Hỗn hợp</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="questionCountInput" class="form-label">Số câu hỏi</label>
+                            <select class="form-control" id="questionCountInput">
+                                <option value="10">10 câu</option>
+                                <option value="15" selected>15 câu</option>
+                                <option value="20">20 câu</option>
+                                <option value="25">25 câu</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="difficultySelect" class="form-label">Độ khó</label>
+                            <select class="form-control" id="difficultySelect">
+                                <option value="easy">Dễ</option>
+                                <option value="medium" selected>Trung bình</option>
+                                <option value="hard">Khó</option>
+                                <option value="mixed">Hỗn hợp</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="timeLimitInput" class="form-label">Thời gian (phút)</label>
+                            <select class="form-control" id="timeLimitInput">
+                                <option value="0">Không giới hạn</option>
+                                <option value="10">10 phút</option>
+                                <option value="15" selected>15 phút</option>
+                                <option value="20">20 phút</option>
+                                <option value="30">30 phút</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" onclick="startCustomTest()">Bắt đầu kiểm tra</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/exercises.js"></script>
+</body>
+</html>
