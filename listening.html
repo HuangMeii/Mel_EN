@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnglishLearner - Luyện nghe</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-graduation-cap"></i> EnglishLearner
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home"></i> Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="vocabulary.html">
+                            <i class="fas fa-book"></i> Từ vựng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="grammar.html">
+                            <i class="fas fa-spell-check"></i> Ngữ pháp
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="listening.html">
+                            <i class="fas fa-headphones"></i> Luyện nghe
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="speaking.html">
+                            <i class="fas fa-microphone"></i> Luyện nói
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="exercises.html">
+                            <i class="fas fa-pencil-alt"></i> Bài tập
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="progress.html">
+                            <i class="fas fa-chart-line"></i> Tiến trình
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mt-5 pt-5">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1><i class="fas fa-headphones text-primary"></i> Luyện nghe</h1>
+                <p class="lead">Cải thiện kỹ năng nghe qua video, podcast và audio</p>
+            </div>
+        </div>        <!-- Action Buttons -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addVideoModal">
+                    <i class="fas fa-plus"></i> Thêm video
+                </button>
+                <button class="btn btn-success me-2" onclick="showRecommendations()">
+                    <i class="fas fa-star"></i> Gợi ý
+                </button>
+                <button class="btn btn-warning me-2" onclick="showListeningExercise()">
+                    <i class="fas fa-headphones"></i> Bài tập nghe
+                </button>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="searchListeningInput" placeholder="Tìm kiếm video, podcast...">
+                    <button class="btn btn-outline-secondary" onclick="searchListening()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <ul class="nav nav-pills" id="listeningTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" onclick="filterListeningByType('all')">Tất cả</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" onclick="filterListeningByType('youtube')">YouTube</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" onclick="filterListeningByType('podcast')">Podcast</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" onclick="filterListeningByType('ted')">TED Talks</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" onclick="filterListeningByType('news')">News</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Currently Playing Section -->
+        <div id="currentlyPlaying" class="row mb-4" style="display: none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>
+                            <i class="fas fa-play-circle"></i> Đang phát
+                            <button class="btn btn-sm btn-outline-secondary float-end" onclick="hideCurrentVideo()">
+                                <i class="fas fa-times"></i> Đóng
+                            </button>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="video-container" id="videoContainer">
+                                    <!-- Video will be embedded here -->
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card transcript-card">
+                                    <div class="card-header">
+                                        <h6><i class="fas fa-file-text"></i> Transcript</h6>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="autoScrollTranscript">
+                                            <label class="form-check-label" for="autoScrollTranscript">
+                                                Auto scroll
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" id="transcriptContent">
+                                        <p class="text-muted">Transcript sẽ hiển thị ở đây...</p>
+                                    </div>
+                                </div>
+                                
+                                <!-- Notes Section -->
+                                <div class="card mt-3">
+                                    <div class="card-header">
+                                        <h6><i class="fas fa-sticky-note"></i> Ghi chú</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <textarea class="form-control" id="videoNotes" rows="4" placeholder="Ghi chú của bạn..."></textarea>
+                                        <button class="btn btn-sm btn-success mt-2" onclick="saveVideoNotes()">
+                                            <i class="fas fa-save"></i> Lưu ghi chú
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video List -->
+        <div class="row" id="listeningContainer">
+            <!-- Listening content will be inserted here -->
+        </div>
+
+        <!-- Recommendations Section -->
+        <div id="recommendationsSection" class="row" style="display: none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>
+                            <i class="fas fa-star"></i> Gợi ý nội dung
+                            <button class="btn btn-sm btn-outline-secondary float-end" onclick="hideRecommendations()">
+                                <i class="fas fa-times"></i> Đóng
+                            </button>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>📺 YouTube Channels</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <strong>English with Emma</strong><br>
+                                        <small class="text-muted">Ngữ pháp và từ vựng cơ bản</small>
+                                    </li>
+                                    <li class="mb-2">
+                                        <strong>BBC Learning English</strong><br>
+                                        <small class="text-muted">Tin tức và bài học tiếng Anh</small>
+                                    </li>
+                                    <li class="mb-2">
+                                        <strong>English Addict with Mr. Duncan</strong><br>
+                                        <small class="text-muted">Bài học vui nhộn và thú vị</small>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>🎧 Podcasts</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <strong>All Ears English</strong><br>
+                                        <small class="text-muted">Tiếng Anh đời thường</small>
+                                    </li>
+                                    <li class="mb-2">
+                                        <strong>6 Minute English - BBC</strong><br>
+                                        <small class="text-muted">Bài học ngắn gọn</small>
+                                    </li>
+                                    <li class="mb-2">
+                                        <strong>ESL Pod</strong><br>
+                                        <small class="text-muted">Học tiếng Anh qua tình huống</small>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Listening Exercise Section -->
+        <div id="listeningExerciseSection" class="row" style="display: none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>
+                            <i class="fas fa-headphones"></i> Bài tập nghe và điền từ
+                            <button class="btn btn-sm btn-outline-secondary float-end" onclick="hideListeningExercise()">
+                                <i class="fas fa-times"></i> Đóng
+                            </button>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Audio Player -->
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6><i class="fas fa-play"></i> Audio</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <audio id="exerciseAudio" controls class="w-100 mb-3">
+                                            <source id="exerciseAudioSource" src="" type="audio/mpeg">
+                                            Trình duyệt không hỗ trợ audio.
+                                        </audio>
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-primary btn-sm" onclick="playExerciseAudio()">
+                                                <i class="fas fa-play"></i> Phát
+                                            </button>
+                                            <button class="btn btn-warning btn-sm" onclick="pauseExerciseAudio()">
+                                                <i class="fas fa-pause"></i> Tạm dừng
+                                            </button>
+                                            <button class="btn btn-info btn-sm" onclick="replayExerciseAudio()">
+                                                <i class="fas fa-redo"></i> Phát lại
+                                            </button>
+                                        </div>
+                                        <div class="mt-2">
+                                            <small class="text-muted">Có thể nghe nhiều lần</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Exercise Content -->
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6><i class="fas fa-edit"></i> Điền từ vào chỗ trống</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="exerciseContent">
+                                            <!-- Exercise content will be loaded here -->
+                                        </div>
+                                        <div class="mt-3">
+                                            <button class="btn btn-success me-2" onclick="checkListeningAnswer()">
+                                                <i class="fas fa-check"></i> Kiểm tra
+                                            </button>
+                                            <button class="btn btn-info me-2" onclick="showListeningHint()">
+                                                <i class="fas fa-lightbulb"></i> Gợi ý
+                                            </button>
+                                            <button class="btn btn-secondary" onclick="resetListeningExercise()">
+                                                <i class="fas fa-redo"></i> Làm lại
+                                            </button>
+                                        </div>
+                                        <div id="exerciseResult" class="mt-3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Video Modal -->
+    <div class="modal fade" id="addVideoModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm video/audio</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addVideoForm">
+                        <div class="mb-3">
+                            <label for="videoTitleInput" class="form-label">Tiêu đề *</label>
+                            <input type="text" class="form-control" id="videoTitleInput" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="videoUrlInput" class="form-label">URL *</label>
+                            <input type="url" class="form-control" id="videoUrlInput" placeholder="https://www.youtube.com/watch?v=..." required>
+                            <div class="form-text">Hỗ trợ YouTube, Vimeo, SoundCloud</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="videoTypeSelect" class="form-label">Loại nội dung</label>
+                            <select class="form-control" id="videoTypeSelect">
+                                <option value="youtube">YouTube</option>
+                                <option value="podcast">Podcast</option>
+                                <option value="ted">TED Talk</option>
+                                <option value="news">News</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="videoLevelSelect" class="form-label">Độ khó</label>
+                            <select class="form-control" id="videoLevelSelect">
+                                <option value="beginner">Cơ bản</option>
+                                <option value="intermediate">Trung bình</option>
+                                <option value="advanced">Nâng cao</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="videoTranscriptInput" class="form-label">Transcript (tùy chọn)</label>
+                            <textarea class="form-control" id="videoTranscriptInput" rows="4" placeholder="Bản ghi chép nội dung..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="videoDescriptionInput" class="form-label">Mô tả</label>
+                            <textarea class="form-control" id="videoDescriptionInput" rows="2" placeholder="Mô tả nội dung video..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" onclick="addNewVideo()">Thêm video</button>
+                </div>
+            </div>
+        </div>
+    </div>    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/tts-helper.js"></script>
+    <script src="js/listening.js"></script>
+</body>
+</html>
