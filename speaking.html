@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnglishLearner - Luyện nói</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-graduation-cap"></i> EnglishLearner
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home"></i> Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="vocabulary.html">
+                            <i class="fas fa-book"></i> Từ vựng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="grammar.html">
+                            <i class="fas fa-spell-check"></i> Ngữ pháp
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="listening.html">
+                            <i class="fas fa-headphones"></i> Luyện nghe
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="speaking.html">
+                            <i class="fas fa-microphone"></i> Luyện nói
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="exercises.html">
+                            <i class="fas fa-pencil-alt"></i> Bài tập
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="progress.html">
+                            <i class="fas fa-chart-line"></i> Tiến trình
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mt-5 pt-5">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1><i class="fas fa-microphone text-info"></i> Luyện nói</h1>
+                <p class="lead">Cải thiện kỹ năng nói và phát âm tiếng Anh</p>
+            </div>
+        </div>
+
+        <!-- Speaking Practice Modes -->
+        <div class="row mb-4">
+            <div class="col-md-4 mb-3">
+                <div class="card quick-action-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-microphone fa-3x text-primary mb-3"></i>
+                        <h5>Ghi âm tự do</h5>
+                        <p class="text-muted">Ghi âm và nghe lại giọng nói của bạn</p>
+                        <button class="btn btn-primary" onclick="showFreeRecording()">
+                            Bắt đầu
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card quick-action-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-comments fa-3x text-success mb-3"></i>
+                        <h5>Chủ đề nói</h5>
+                        <p class="text-muted">Luyện nói theo chủ đề có sẵn</p>
+                        <button class="btn btn-success" onclick="showTopicSpeaking()">
+                            Chọn chủ đề
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card quick-action-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-volume-up fa-3x text-warning mb-3"></i>
+                        <h5>Luyện phát âm</h5>
+                        <p class="text-muted">Luyện phát âm từ vựng</p>
+                        <button class="btn btn-warning" onclick="showPronunciationPractice()">
+                            Luyện tập
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Free Recording Section -->
+        <div id="freeRecordingSection" class="row" style="display: none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>
+                            <i class="fas fa-microphone"></i> Ghi âm tự do
+                            <button class="btn btn-sm btn-outline-secondary float-end" onclick="hideFreeRecording()">
+                                <i class="fas fa-times"></i> Đóng
+                            </button>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="recording-controls">
+                            <div class="mb-3">
+                                <h5>Ghi âm giọng nói của bạn</h5>
+                                <p class="text-muted">Nhấn nút ghi âm để bắt đầu, nhấn lại để dừng</p>
+                            </div>
+                            
+                            <button id="recordButton" class="record-btn btn btn-primary" onclick="toggleRecording()">
+                                <i class="fas fa-microphone"></i>
+                            </button>
+                            
+                            <div class="mt-3">
+                                <span id="recordingTime">00:00</span>
+                            </div>
+                            
+                            <div id="recordingStatus" class="mt-2">
+                                <small class="text-muted">Sẵn sàng ghi âm</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Recorded Audio List -->
+                        <div id="recordedAudioList" class="mt-4" style="display: none;">
+                            <h5>Bản ghi âm của bạn</h5>
+                            <div id="audioContainer">
+                                <!-- Audio files will be listed here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Topic Speaking Section -->
+        <div id="topicSpeakingSection" class="row" style="display: none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>
+                            <i class="fas fa-comments"></i> Luyện nói theo chủ đề
+                            <button class="btn btn-sm btn-outline-secondary float-end" onclick="hideTopicSpeaking()">
+                                <i class="fas fa-times"></i> Đóng
+                            </button>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="topicsContainer">
+                            <!-- Topics will be loaded here -->
+                        </div>
+                        
+                        <!-- Current Topic Display -->
+                        <div id="currentTopicDisplay" style="display: none;">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 id="currentTopicTitle"></h5>
+                                    <p id="currentTopicDescription"></p>
+                                    <div id="currentTopicQuestions"></div>
+                                    
+                                    <div class="recording-controls mt-4">
+                                        <button id="topicRecordButton" class="record-btn btn btn-success" onclick="toggleTopicRecording()">
+                                            <i class="fas fa-microphone"></i>
+                                        </button>
+                                        <div class="mt-2">
+                                            <span id="topicRecordingTime">00:00</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <button class="btn btn-secondary mt-3" onclick="selectNewTopic()">
+                                        <i class="fas fa-arrow-left"></i> Chọn chủ đề khác
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pronunciation Practice Section -->
+        <div id="pronunciationSection" class="row" style="display: none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>
+                            <i class="fas fa-volume-up"></i> Luyện phát âm
+                            <button class="btn btn-sm btn-outline-secondary float-end" onclick="hidePronunciationPractice()">
+                                <i class="fas fa-times"></i> Đóng
+                            </button>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h2 id="pronunciationWord" class="text-primary">Choose a word</h2>
+                                        <p id="pronunciationMeaning" class="text-muted"></p>
+                                        
+                                        <div class="mt-3">
+                                            <button class="btn btn-outline-primary me-2" onclick="playWordAudio()">
+                                                <i class="fas fa-play"></i> Nghe
+                                            </button>
+                                            <button class="btn btn-warning" onclick="recordPronunciation()">
+                                                <i class="fas fa-microphone"></i> Ghi âm
+                                            </button>
+                                        </div>
+                                        
+                                        <div class="mt-3">
+                                            <button class="btn btn-success me-2" onclick="nextPronunciationWord()">
+                                                <i class="fas fa-arrow-right"></i> Từ tiếp theo
+                                            </button>
+                                            <button class="btn btn-secondary" onclick="markDifficultPronunciation()">
+                                                <i class="fas fa-star"></i> Khó
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6>Bản ghi âm phát âm</h6>
+                                    </div>
+                                    <div class="card-body" id="pronunciationRecordings">
+                                        <p class="text-muted">Các bản ghi âm sẽ hiển thị ở đây</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Speaking History -->
+        <div class="row">
+            <div class="col-12">
+                <h3><i class="fas fa-history"></i> Lịch sử luyện nói</h3>
+                <div class="card">
+                    <div class="card-body" id="speakingHistory">
+                        <!-- Speaking history will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/speaking.js"></script>
+</body>
+</html>

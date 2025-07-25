@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnglishLearner - Theo dõi tiến trình</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-graduation-cap"></i> EnglishLearner
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home"></i> Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="vocabulary.html">
+                            <i class="fas fa-book"></i> Từ vựng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="grammar.html">
+                            <i class="fas fa-spell-check"></i> Ngữ pháp
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="listening.html">
+                            <i class="fas fa-headphones"></i> Luyện nghe
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="speaking.html">
+                            <i class="fas fa-microphone"></i> Luyện nói
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="exercises.html">
+                            <i class="fas fa-pencil-alt"></i> Bài tập
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="progress.html">
+                            <i class="fas fa-chart-line"></i> Tiến trình
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mt-5 pt-5">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1><i class="fas fa-chart-line text-success"></i> Theo dõi tiến trình</h1>
+                <p class="lead">Xem chi tiết quá trình học tập của bạn</p>
+            </div>
+        </div>
+
+        <!-- Progress Overview -->
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="card progress-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-fire fa-2x text-danger mb-2"></i>
+                        <h3 id="studyStreakDisplay" class="text-danger">0</h3>
+                        <p class="mb-0">Ngày liên tiếp</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card progress-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-book fa-2x text-primary mb-2"></i>
+                        <h3 id="totalVocabularyDisplay" class="text-primary">0</h3>
+                        <p class="mb-0">Từ vựng đã học</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card progress-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-trophy fa-2x text-warning mb-2"></i>
+                        <h3 id="averageScoreDisplay" class="text-warning">0%</h3>
+                        <p class="mb-0">Điểm trung bình</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card progress-card">
+                    <div class="card-body text-center">
+                        <i class="fas fa-clock fa-2x text-info mb-2"></i>
+                        <h3 id="totalStudyTimeDisplay" class="text-info">0h</h3>
+                        <p class="mb-0">Tổng thời gian học</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Goals Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>
+                            <i class="fas fa-target"></i> Mục tiêu cá nhân
+                            <button class="btn btn-sm btn-outline-primary float-end" data-bs-toggle="modal" data-bs-target="#goalsModal">
+                                <i class="fas fa-edit"></i> Chỉnh sửa
+                            </button>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Mục tiêu hàng ngày</h6>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar bg-success" id="dailyVocabProgress" style="width: 0%"></div>
+                                </div>
+                                <small class="text-muted">Từ vựng: <span id="dailyVocabCount">0</span>/<span id="dailyVocabGoal">20</span></small>
+                                
+                                <div class="progress mb-2 mt-3">
+                                    <div class="progress-bar bg-info" id="dailyStudyProgress" style="width: 0%"></div>
+                                </div>
+                                <small class="text-muted">Thời gian học: <span id="dailyStudyTime">0</span>/<span id="dailyStudyGoal">30</span> phút</small>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Mục tiêu hàng tuần</h6>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar bg-warning" id="weeklyVocabProgress" style="width: 0%"></div>
+                                </div>
+                                <small class="text-muted">Từ vựng: <span id="weeklyVocabCount">0</span>/<span id="weeklyVocabGoal">140</span></small>
+                                
+                                <div class="progress mb-2 mt-3">
+                                    <div class="progress-bar bg-danger" id="weeklyTestProgress" style="width: 0%"></div>
+                                </div>
+                                <small class="text-muted">Bài kiểm tra: <span id="weeklyTestCount">0</span>/<span id="weeklyTestGoal">3</span></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-line"></i> Tiến trình từ vựng</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="vocabularyChart" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-bar"></i> Điểm số kiểm tra</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="scoresChart" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-pie-chart"></i> Thống kê hoạt động</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="activityChart" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-calendar-alt"></i> Lịch học tập</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="studyCalendar">
+                            <!-- Study calendar will be generated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievements Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-medal"></i> Thành tích</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" id="achievementsContainer">
+                            <!-- Achievements will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Study Statistics -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-area"></i> Thống kê chi tiết</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Loại hoạt động</th>
+                                        <th>Hôm nay</th>
+                                        <th>Tuần này</th>
+                                        <th>Tháng này</th>
+                                        <th>Tổng cộng</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="statisticsTable">
+                                    <!-- Statistics will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Goals Modal -->
+    <div class="modal fade" id="goalsModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thiết lập mục tiêu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="goalsForm">
+                        <div class="mb-3">
+                            <label for="dailyVocabGoalInput" class="form-label">Từ vựng mỗi ngày</label>
+                            <input type="number" class="form-control" id="dailyVocabGoalInput" min="1" max="100" value="20">
+                        </div>
+                        <div class="mb-3">
+                            <label for="dailyStudyGoalInput" class="form-label">Thời gian học mỗi ngày (phút)</label>
+                            <input type="number" class="form-control" id="dailyStudyGoalInput" min="5" max="300" value="30">
+                        </div>
+                        <div class="mb-3">
+                            <label for="weeklyVocabGoalInput" class="form-label">Từ vựng mỗi tuần</label>
+                            <input type="number" class="form-control" id="weeklyVocabGoalInput" min="7" max="700" value="140">
+                        </div>
+                        <div class="mb-3">
+                            <label for="weeklyTestGoalInput" class="form-label">Bài kiểm tra mỗi tuần</label>
+                            <input type="number" class="form-control" id="weeklyTestGoalInput" min="1" max="20" value="3">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" onclick="saveGoals()">Lưu mục tiêu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/progress.js"></script>
+</body>
+</html>

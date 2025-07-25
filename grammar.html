@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnglishLearner - Ngữ pháp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-graduation-cap"></i> EnglishLearner
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home"></i> Trang chủ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="vocabulary.html">
+                            <i class="fas fa-book"></i> Từ vựng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="grammar.html">
+                            <i class="fas fa-spell-check"></i> Ngữ pháp
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="listening.html">
+                            <i class="fas fa-headphones"></i> Luyện nghe
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="speaking.html">
+                            <i class="fas fa-microphone"></i> Luyện nói
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="exercises.html">
+                            <i class="fas fa-pencil-alt"></i> Bài tập
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="progress.html">
+                            <i class="fas fa-chart-line"></i> Tiến trình
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mt-5 pt-5">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1><i class="fas fa-spell-check text-danger"></i> Ngữ pháp</h1>
+                <p class="lead">Ghi chú và ôn tập các điểm ngữ pháp quan trọng</p>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <button class="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#addGrammarModal">
+                    <i class="fas fa-plus"></i> Thêm ghi chú
+                </button>
+                <button class="btn btn-warning me-2" onclick="showQuickReference()">
+                    <i class="fas fa-bookmark"></i> Tham khảo nhanh
+                </button>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="searchGrammarInput" placeholder="Tìm kiếm ngữ pháp...">
+                    <button class="btn btn-outline-secondary" onclick="searchGrammar()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grammar Categories -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <ul class="nav nav-pills" id="grammarTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" onclick="filterGrammarByCategory('all')">Tất cả</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" onclick="filterGrammarByCategory('tenses')">Thì</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" onclick="filterGrammarByCategory('conditionals')">Câu điều kiện</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" onclick="filterGrammarByCategory('relative')">Mệnh đề quan hệ</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" onclick="filterGrammarByCategory('passive')">Câu bị động</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" onclick="filterGrammarByCategory('others')">Khác</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Grammar Notes -->
+        <div class="row" id="grammarContainer">
+            <!-- Grammar notes will be inserted here -->
+        </div>
+
+        <!-- Quick Reference Section (Hidden by default) -->
+        <div id="quickReferenceSection" class="row" style="display: none;">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>
+                            <i class="fas fa-bookmark"></i> Tham khảo nhanh
+                            <button class="btn btn-sm btn-outline-secondary float-end" onclick="hideQuickReference()">
+                                <i class="fas fa-times"></i> Đóng
+                            </button>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Thì cơ bản</h5>
+                                <div class="grammar-example">
+                                    <strong>Present Simple:</strong> I work / He works<br>
+                                    <em>Diễn tả thói quen, sự thật hiển nhiên</em>
+                                </div>
+                                <div class="grammar-example">
+                                    <strong>Present Continuous:</strong> I am working<br>
+                                    <em>Diễn tả hành động đang xảy ra</em>
+                                </div>
+                                <div class="grammar-example">
+                                    <strong>Present Perfect:</strong> I have worked<br>
+                                    <em>Diễn tả kết quả của hành động trong quá khứ</em>
+                                </div>
+                                <div class="grammar-example">
+                                    <strong>Past Simple:</strong> I worked<br>
+                                    <em>Diễn tả hành động đã hoàn thành trong quá khứ</em>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Câu điều kiện</h5>
+                                <div class="grammar-example">
+                                    <strong>Type 0:</strong> If + present, present<br>
+                                    <em>If you heat water, it boils.</em>
+                                </div>
+                                <div class="grammar-example">
+                                    <strong>Type 1:</strong> If + present, will + V<br>
+                                    <em>If it rains, I will stay home.</em>
+                                </div>
+                                <div class="grammar-example">
+                                    <strong>Type 2:</strong> If + past, would + V<br>
+                                    <em>If I had money, I would travel.</em>
+                                </div>
+                                <div class="grammar-example">
+                                    <strong>Type 3:</strong> If + past perfect, would have + V3<br>
+                                    <em>If I had studied, I would have passed.</em>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Grammar Modal -->
+    <div class="modal fade" id="addGrammarModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thêm ghi chú ngữ pháp</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addGrammarForm">
+                        <div class="mb-3">
+                            <label for="grammarTitleInput" class="form-label">Tiêu đề *</label>
+                            <input type="text" class="form-control" id="grammarTitleInput" placeholder="VD: Present Perfect Tense" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="grammarCategorySelect" class="form-label">Loại ngữ pháp</label>
+                            <select class="form-control" id="grammarCategorySelect">
+                                <option value="tenses">Thì</option>
+                                <option value="conditionals">Câu điều kiện</option>
+                                <option value="relative">Mệnh đề quan hệ</option>
+                                <option value="passive">Câu bị động</option>
+                                <option value="others">Khác</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="grammarContentInput" class="form-label">Nội dung *</label>
+                            <textarea class="form-control" id="grammarContentInput" rows="4" placeholder="Mô tả quy tắc ngữ pháp..." required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="grammarExamplesInput" class="form-label">Ví dụ</label>
+                            <textarea class="form-control" id="grammarExamplesInput" rows="3" placeholder="Mỗi ví dụ một dòng..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="grammarDifficultySelect" class="form-label">Độ khó</label>
+                            <select class="form-control" id="grammarDifficultySelect">
+                                <option value="beginner">Cơ bản</option>
+                                <option value="intermediate" selected>Trung bình</option>
+                                <option value="advanced">Nâng cao</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-danger" onclick="addNewGrammarNote()">Thêm ghi chú</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Grammar Modal -->
+    <div class="modal fade" id="editGrammarModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Chỉnh sửa ghi chú ngữ pháp</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editGrammarForm">
+                        <input type="hidden" id="editGrammarId">
+                        <div class="mb-3">
+                            <label for="editGrammarTitleInput" class="form-label">Tiêu đề *</label>
+                            <input type="text" class="form-control" id="editGrammarTitleInput" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editGrammarCategorySelect" class="form-label">Loại ngữ pháp</label>
+                            <select class="form-control" id="editGrammarCategorySelect">
+                                <option value="tenses">Thì</option>
+                                <option value="conditionals">Câu điều kiện</option>
+                                <option value="relative">Mệnh đề quan hệ</option>
+                                <option value="passive">Câu bị động</option>
+                                <option value="others">Khác</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editGrammarContentInput" class="form-label">Nội dung *</label>
+                            <textarea class="form-control" id="editGrammarContentInput" rows="4" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editGrammarExamplesInput" class="form-label">Ví dụ</label>
+                            <textarea class="form-control" id="editGrammarExamplesInput" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editGrammarDifficultySelect" class="form-label">Độ khó</label>
+                            <select class="form-control" id="editGrammarDifficultySelect">
+                                <option value="beginner">Cơ bản</option>
+                                <option value="intermediate">Trung bình</option>
+                                <option value="advanced">Nâng cao</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" onclick="updateGrammarNote()">Cập nhật</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/grammar.js"></script>
+</body>
+</html>

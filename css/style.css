@@ -1,0 +1,534 @@
+/* Global Styles */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-success: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+    --gradient-warning: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --shadow-card: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius: 10px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+}
+
+/* Navigation */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.navbar-nav .nav-link {
+    margin: 0 5px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.navbar-nav .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.bg-gradient-primary {
+    background: var(--gradient-primary);
+}
+
+/* Statistics Cards */
+.stat-card {
+    border-top: 4px solid var(--primary-color);
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.stat-card:nth-child(2) {
+    border-top-color: var(--success-color);
+    animation-delay: 0.1s;
+}
+
+.stat-card:nth-child(3) {
+    border-top-color: var(--warning-color);
+    animation-delay: 0.2s;
+}
+
+.stat-card:nth-child(4) {
+    border-top-color: var(--danger-color);
+    animation-delay: 0.3s;
+}
+
+/* Quick Action Cards */
+.quick-action-card {
+    height: 100%;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-left: 4px solid var(--primary-color);
+}
+
+.quick-action-card:nth-child(2) {
+    border-left-color: var(--success-color);
+}
+
+.quick-action-card:nth-child(3) {
+    border-left-color: var(--warning-color);
+}
+
+/* Reminder Card */
+.reminder-card {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    border-left: 5px solid var(--info-color);
+}
+
+/* Activity Items */
+.activity-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-item i {
+    margin-right: 15px;
+    width: 20px;
+}
+
+.activity-item span {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.activity-item small {
+    white-space: nowrap;
+}
+
+/* Vocabulary Page Styles */
+.vocabulary-card {
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    border-left: 4px solid var(--success-color);
+    cursor: pointer;
+}
+
+.vocabulary-card:hover {
+    border-left-color: var(--primary-color);
+}
+
+.word-category {
+    background: var(--primary-color);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.flashcard {
+    min-height: 200px;
+    perspective: 1000px;
+    margin: 20px 0;
+}
+
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.flashcard.flipped .flashcard-inner {
+    transform: rotateY(180deg);
+}
+
+.flashcard-front, .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.flashcard-front {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+.flashcard-back {
+    background: var(--gradient-success);
+    color: white;
+    transform: rotateY(180deg);
+}
+
+/* Grammar Page Styles */
+.grammar-topic {
+    background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+    border-left: 4px solid var(--danger-color);
+}
+
+.grammar-example {
+    background-color: #f8f9fa;
+    border-left: 3px solid var(--info-color);
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+/* Progress Page Styles */
+.progress-card {
+    background: linear-gradient(135deg, #fff 0%, #f0f8ff 100%);
+}
+
+.progress-bar-animated {
+    animation: progress-animation 2s ease-in-out;
+}
+
+/* Exercise Page Styles */
+.exercise-card {
+    background: linear-gradient(135deg, #fffbf0 0%, #fff2cc 100%);
+    border-left: 4px solid var(--warning-color);
+}
+
+.answer-option {
+    background-color: #f8f9fa;
+    border: 2px solid #dee2e6;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.answer-option:hover {
+    background-color: #e9ecef;
+    border-color: var(--primary-color);
+}
+
+.answer-option.correct {
+    background-color: #d4edda;
+    border-color: var(--success-color);
+    color: var(--success-color);
+}
+
+.answer-option.incorrect {
+    background-color: #f8d7da;
+    border-color: var(--danger-color);
+    color: var(--danger-color);
+}
+
+.answer-option.selected {
+    background-color: #cce7ff;
+    border-color: var(--primary-color);
+}
+
+/* Listening Exercise Styles */
+.exercise-input {
+    border: 2px solid #e9ecef;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.exercise-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.exercise-input.is-valid {
+    border-color: #28a745;
+    background-color: #d4edda;
+}
+
+.exercise-input.is-invalid {
+    border-color: #dc3545;
+    background-color: #f8d7da;
+}
+
+.exercise-text {
+    line-height: 2.5;
+    font-size: 1.1rem;
+}
+
+.exercise-text p {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+}
+
+#listeningExerciseSection .card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+#listeningExerciseSection .card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-bottom: none;
+}
+
+#exerciseAudio {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.exercise-input::placeholder {
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* TTS Controls Styles */
+.tts-controls .card {
+    border: 2px solid #e3f2fd;
+    background: linear-gradient(135deg, #f8f9ff 0%, #e8f4fd 100%);
+}
+
+.tts-controls .card-body {
+    padding: 1rem;
+}
+
+.tts-controls h6 {
+    color: #1976d2;
+    margin-bottom: 0.5rem;
+}
+
+.tts-controls .btn {
+    min-width: 80px;
+}
+
+.tts-controls .btn-primary {
+    background: linear-gradient(45deg, #2196f3, #21cbf3);
+    border: none;
+}
+
+.tts-controls .btn-warning {
+    background: linear-gradient(45deg, #ff9800, #ffc107);
+    border: none;
+}
+
+.tts-controls .btn-info {
+    background: linear-gradient(45deg, #00bcd4, #4caf50);
+    border: none;
+}
+
+/* Text-to-Speech Button Styles */
+.tts-button {
+    transition: all 0.3s ease;
+    border-radius: 20px;
+}
+
+.tts-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+.tts-button:active {
+    transform: scale(0.95);
+}
+
+.vocabulary-card .card-title .tts-button {
+    font-size: 0.9rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.flashcard .tts-button {
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.flashcard .tts-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: white;
+}
+
+.input-group .tts-button {
+    border-left: 0;
+}
+
+/* TTS Controls Animation */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.tts-speaking {
+    animation: pulse 1s infinite;
+    background-color: var(--success-color) !important;
+    border-color: var(--success-color) !important;
+    color: white !important;
+}
+
+/* Streak recalculate button */
+.btn-outline-warning:hover {
+    animation: spin 0.5s ease-in-out;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Streak display */
+#currentStreak {
+    font-weight: bold;
+    color: var(--danger-color);
+}
+
+.streak-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes progress-animation {
+    from {
+        width: 0%;
+    }
+    to {
+        width: var(--progress-width);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .card {
+        margin-bottom: 15px;
+    }
+    
+    .flashcard {
+        min-height: 150px;
+    }
+    
+    .flashcard-inner {
+        height: 150px;
+    }
+    
+    .record-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .card-body {
+        padding: 15px;
+    }
+    
+    .activity-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .activity-item i {
+        margin-bottom: 5px;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
+        color: #e2e8f0;
+    }
+    
+    .card {
+        background-color: #2d3748;
+        color: #e2e8f0;
+    }
+    
+    .reminder-card {
+        background: linear-gradient(135deg, #2a4365 0%, #3182ce 100%);
+    }
+}
+
+/* Utility Classes */
+.text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.btn-gradient {
+    background: var(--gradient-primary);
+    border: none;
+    color: white;
+}
+
+.btn-gradient:hover {
+    background: var(--gradient-warning);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.fade-in {
+    animation: fadeInUp 0.6s ease-out;
+}
